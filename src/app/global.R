@@ -5,6 +5,7 @@ library(shinyjs)
 library(sass)
 
 board <- use("modules/board.R")
+players <- use("logic/players.R")
 
 sass(
   sass::sass_file("styles/main.scss"),
