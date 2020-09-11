@@ -6,5 +6,14 @@ semanticPage(
       href = "sass.min.css"
   ),
   shinyjs::useShinyjs(),
-  board$ui("board")
+  shiny.semantic::grid(
+    grid_template(
+      default = list(
+        areas = cbind("board", "players"),
+        cols_width = c("4fr", "1fr")
+      )
+    ),
+    board = board$ui("board"),
+    players = uiOutput("players_section")
+  )
 )

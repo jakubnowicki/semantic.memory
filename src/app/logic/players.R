@@ -10,10 +10,10 @@ Player <- R6::R6Class(
       score = "int",
       initialize = function(name) {
         self$name <- name
-        self$score <- 0
+        self$score <- reactiveVal(0)
       },
       give_point = function() {
-        self$score <- self$score + 1
+        self$score(self$score() + 1)
       }
     )
   )
@@ -45,7 +45,7 @@ Players <- R6::R6Class(
       }
     },
     get_scores = function() {
-      purrr::map(self$players, ~.x$score)
+      purrr::map(self$players, ~.x$score())
     }
   )
 )

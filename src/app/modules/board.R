@@ -29,8 +29,8 @@ ui <- function(id) {
   grid_template <- shiny.semantic::grid_template(
       default = list(
         areas = areas %>% matrix(ncol = ncol),
-        cols_width = c("200px 200px 200px"),
-        rows_height = c("205px 205px 205px 205px")
+        cols_width = c("200px 200px 200px 200px"),
+        rows_height = c("205px 205px 205px")
       )
     )
 

@@ -6,6 +6,7 @@ library(sass)
 
 board <- use("modules/board.R")
 players <- use("logic/players.R")
+player_section <- use("modules/player_section.R")
 
 sass(
   sass::sass_file("styles/main.scss"),
