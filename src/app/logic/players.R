@@ -1,5 +1,6 @@
 import("R6")
 import("shiny")
+import("magrittr")
 
 export("Players")
 
@@ -46,6 +47,12 @@ Players <- R6::R6Class(
     },
     get_scores = function() {
       purrr::map(self$players, ~.x$score())
+    },
+    get_winner = function() {
+      winning_score <- max(unlist(self$get_scores()))
+      self$get_scores() %>%
+        purrr::keep(function(x) x == winning_score) %>%
+        names()
     }
   )
 )

@@ -68,7 +68,18 @@ server <- function(input, output, session) {
           )
         )
         if (sum(unlist(session$userData$players$get_scores())) == 6) {
-          print(session$userData$players$get_scores())
+          winner <- session$userData$players$get_winner()
+          if (length(winner) == 1) {
+            phrase <- glue::glue("The winner is {winner}!")
+          } else {
+            winner <- paste(unlist(winner), collapse = ", ")
+            phrase <- glue::glue("Draw: {winner}")
+          }
+          create_modal(modal(
+            id = "game_finished",
+            header = h2("Game finished!"),
+            h3(phrase)
+          ))
         }
       } else {
         session$userData$players$next_player()
