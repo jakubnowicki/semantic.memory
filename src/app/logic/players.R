@@ -22,7 +22,7 @@ Players <- R6::R6Class(
   "Players",
   public = list(
     players = "list",
-    active_player = "integer",
+    active_player = "reactiveVal",
     initialize = function() {
       self$players <- list(
         Player_1 = Player$new("Player_1"),

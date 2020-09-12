@@ -3,11 +3,17 @@ import("shiny")
 export("ui")
 export("init_server")
 
-ui <- function(id) {
+ui <- function(id, active = FALSE) {
   ns <- NS(id)
-  div(class = "ui raised segment",
+  class <- "ui raised segment"
+
+  if (active) {
+    class <- paste0(class, " active")
+  }
+
+  div(id = id, class = class,
     div(
-      div(class="ui green ribbon label", textOutput(ns("name"))),
+      div(class = "ui teal ribbon label", textOutput(ns("name"))),
       h2("Score:"),
       h3(
         textOutput(ns("score"))
