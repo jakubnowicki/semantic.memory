@@ -8,13 +8,18 @@ Player <- R6::R6Class(
     "Player",
     public = list(
       name = "string",
+      id = "string",
       score = "int",
       initialize = function(name) {
-        self$name <- name
+        self$name <- reactiveVal(name)
         self$score <- reactiveVal(0)
+        self$id <- name
       },
       give_point = function() {
         self$score(self$score() + 1)
+      },
+      change_name = function(new_name) {
+        self$name(new_name)
       }
     )
   )
@@ -46,7 +51,10 @@ Players <- R6::R6Class(
       }
     },
     get_scores = function() {
-      purrr::map(self$players, ~.x$score())
+      scores <- purrr::map(self$players, ~.x$score())
+      names <- purrr::map(self$players, ~.x$name())
+
+      stats::setNames(scores, names)
     },
     get_winner = function() {
       winning_score <- max(unlist(self$get_scores()))

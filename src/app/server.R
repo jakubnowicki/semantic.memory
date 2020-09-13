@@ -6,10 +6,10 @@ function(input, output, session) {
   active_player <- c("TRUE", "FALSE")
 
   output$players_section <- renderUI(
-    purrr::map2(session$userData$players$players, active_player, ~player_section$ui(.x$name, .y))
+    purrr::map2(session$userData$players$players, active_player, ~player_section$ui(.x$id, .y))
   )
 
-  purrr::walk(session$userData$players$players, ~player_section$init_server(.x$name, .x))
+  purrr::walk(session$userData$players$players, ~player_section$init_server(.x$id, .x))
 
   observeEvent(session$userData$players$active_player(), {
     shinyjs::runjs("$('#players_section .ui.raised.segment').removeClass('active');")
