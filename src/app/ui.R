@@ -1,5 +1,6 @@
 semanticPage(
   title = "shiny.semantic Memory",
+  header("shiny.semantic Memory", ""),
   tags$link(
       rel = "stylesheet",
       type = "text/css",
@@ -13,7 +14,10 @@ semanticPage(
         cols_width = c("4fr", "1fr")
       )
     ),
-    board = board$ui("board"),
+    board = div(
+      class = "board",
+      board$ui("board")
+    ),
     players = uiOutput("players_section")
   )
 )
