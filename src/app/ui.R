@@ -14,10 +14,7 @@ semanticPage(
         cols_width = c("4fr", "1fr")
       )
     ),
-    board = div(
-      class = "board",
-      board$ui("board")
-    ),
+    board = uiOutput("board"),
     players = uiOutput("players_section")
   ),
   shiny.info::display(

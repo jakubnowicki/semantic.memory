@@ -20,6 +20,9 @@ Player <- R6::R6Class(
       },
       change_name = function(new_name) {
         self$name(new_name)
+      },
+      reset_score = function() {
+        self$score(0)
       }
     )
   )
@@ -61,6 +64,9 @@ Players <- R6::R6Class(
       self$get_scores() %>%
         purrr::keep(function(x) x == winning_score) %>%
         names()
+    },
+    reset_scores = function() {
+      purrr::walk(self$players, ~.x$reset_score())
     }
   )
 )

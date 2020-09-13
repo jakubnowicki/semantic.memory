@@ -41,13 +41,18 @@ ui <- function(id) {
   do.call(shiny.semantic::grid, args)
 }
 
-init_server <- function(id) {
-  callModule(server, id)
+init_server <- function(id, reset) {
+  callModule(server, id, reset = reset)
 }
 
-server <- function(input, output, session) {
+server <- function(input, output, session, reset) {
   first_card_hex <- reactiveVal(NULL)
   first_card_id <- reactiveVal(NULL)
+
+  observeEvent(reset(), {
+    first_card_hex(NULL)
+    first_card_id(NULL)
+  })
 
   observeEvent(input$card_revealed, {
     if (is.null(first_card_hex()) || first_card_id() == input$card_revealed[1]) {

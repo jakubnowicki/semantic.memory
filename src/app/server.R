@@ -1,7 +1,6 @@
 function(input, output, session) {
   session$userData$players <- players$Players$new()
 
-  board$init_server("board")
 
   active_player <- c("TRUE", "FALSE")
 
@@ -14,5 +13,24 @@ function(input, output, session) {
   observeEvent(session$userData$players$active_player(), {
     shinyjs::runjs("$('#players_section .ui.raised.segment').removeClass('active');")
     shinyjs::runjs(glue::glue("$('#Player_{session$userData$players$active_player()}').addClass('active');"))
+  }, ignoreInit = TRUE)
+
+  reset <- reactive(input$reset)
+
+
+  board$init_server("board", reset)
+  output$board <- renderUI(
+    div(
+      class = "board",
+      board$ui("board"),
+      button("reset", "", icon = icon("sync")))
+  )
+
+  observeEvent(input$reset, {
+    session$userData$players$reset_scores()
+    output$board <- renderUI(
+      div(class = "board", board$ui("board"),
+      button("reset", "", icon = icon("sync")))
+    )
   }, ignoreInit = TRUE)
 }
