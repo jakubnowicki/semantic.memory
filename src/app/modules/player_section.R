@@ -33,7 +33,7 @@ init_server <- function(id, player) {
 
 server <- function(input, output, session, player) {
   ns <- session$ns
-  output$name <- renderText(player$name())
+  output$name <- renderText(paste0(player$name(), " "))
 
   output$score <- renderText(player$score())
 
