@@ -19,5 +19,14 @@ semanticPage(
       board$ui("board")
     ),
     players = uiOutput("players_section")
+  ),
+  shiny.info::display(
+    span(
+      "Created by Jakub Nowicki",
+      tags$a(href = "https://twitter.com/q_nowicki", icon("twitter")),
+      tags$a(href = "https://www.linkedin.com/in/jakub-nowicki/", icon("linkedin")),
+      tags$a(href = "https://github.com/jakubnowicki", icon("github"))
+    ),
+    position = "bottom right"
   )
 )
