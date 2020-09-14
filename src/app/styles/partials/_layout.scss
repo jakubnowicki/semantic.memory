@@ -11,10 +11,6 @@
   font-size: 20px;
 }
 
-.ui.header {
-  margin: 15px 15px 30px 15px !important;
-}
-
 .board {
   display: flex;
   justify-content: center;
@@ -40,4 +36,13 @@
 
 .ui.button.positive {
   background-color: #00b5ad !important;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    cursor: pointer;
+  }
 }
