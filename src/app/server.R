@@ -1,6 +1,6 @@
 function(input, output, session) {
   session$userData$players <- players$Players$new()
-
+  game_settings$init_server("game_settings")
 
   active_player <- c("TRUE", "FALSE")
 
@@ -22,14 +22,14 @@ function(input, output, session) {
   output$board <- renderUI(
     div(
       class = "board",
-      board$ui("board"),
+      board$ui("board", size = session$userData$board_size()),
       button("reset", "", icon = icon("sync")))
   )
 
-  observeEvent(input$reset, {
+  observeEvent(c(input$reset, session$userData$board_size()), {
     session$userData$players$reset_scores()
     output$board <- renderUI(
-      div(class = "board", board$ui("board"),
+      div(class = "board", board$ui("board", size = session$userData$board_size()),
       button("reset", "", icon = icon("sync")))
     )
   }, ignoreInit = TRUE)

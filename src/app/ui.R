@@ -1,6 +1,5 @@
 semanticPage(
   title = "shiny.semantic Memory",
-  header("shiny.semantic Memory", ""),
   tags$link(
       rel = "stylesheet",
       type = "text/css",
@@ -15,7 +14,17 @@ semanticPage(
       )
     ),
     board = uiOutput("board"),
-    players = uiOutput("players_section")
+    players = tagList(
+      div(
+        class = "ui raised segment centered",
+        tags$img(
+          src = glue::glue("assets/shiny_semantic.png"),
+          onclick = "window.location = 'https://github.com/Appsilon/shiny.semantic';"
+        ),
+      ),
+      uiOutput("players_section"),
+      game_settings$ui("game_settings")
+    )
   ),
   shiny.info::display(
     span(

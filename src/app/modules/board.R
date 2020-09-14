@@ -7,11 +7,11 @@ export("init_server")
 
 card <- use("logic/card.R")
 
-ui <- function(id) {
+ui <- function(id, size) {
   ns <- NS(id)
 
-  ncol <- 4
-  nrow <- 3
+  ncol <- size[2]
+  nrow <- size[1]
 
   available_hexes <- c(
     "shiny_semantic",
@@ -19,18 +19,26 @@ ui <- function(id) {
     "shiny_info",
     "shiny_i18n",
     "shiny_worker",
-    "shiny_router"
+    "shiny_router",
+    "dplyr",
+    "purrr",
+    "R6",
+    "sass",
+    "shiny",
+    "Appsilon"
   )
 
-  hexes <- sample(rep(available_hexes, times = 2), size = 12)
+  available_hexes <- sample(available_hexes, (ncol*nrow)/2)
+
+  hexes <- sample(rep(available_hexes, times = 2), size = ncol*nrow)
 
   areas <- cross2(1:ncol, 1:nrow) %>% map(~paste0("card_", .x[[1]], "_", .x[[2]]))
 
   grid_template <- shiny.semantic::grid_template(
       default = list(
         areas = areas %>% matrix(ncol = ncol),
-        cols_width = c("200px 200px 200px 200px"),
-        rows_height = c("205px 205px 205px")
+        cols_width = rep("200px", times = ncol),
+        rows_height = rep("205px", times = nrow)
       )
     )
 
@@ -72,7 +80,7 @@ server <- function(input, output, session, reset) {
             "$('#{input$card_revealed[1]}').css('display', 'none');"
           )
         )
-        if (sum(unlist(session$userData$players$get_scores())) == 6) {
+        if (sum(unlist(session$userData$players$get_scores())) == session$userData$board_size()[3]) {
           winner <- session$userData$players$get_winner()
           if (length(winner) == 1) {
             phrase <- glue::glue("The winner is {winner}!")
