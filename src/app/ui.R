@@ -15,7 +15,10 @@ semanticPage(
       )
     ),
     board = uiOutput("board"),
-    players = uiOutput("players_section")
+    players = tagList(
+      uiOutput("players_section"),
+      game_settings$ui("game_settings")
+    )
   ),
   shiny.info::display(
     span(
